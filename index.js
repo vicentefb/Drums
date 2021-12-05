@@ -2,6 +2,8 @@
 // Add animation to button
 // Play music()
 
+var audio_volume = 0.6;
+
 const animate = (key) => {
   if (
     key == "w" ||
@@ -22,6 +24,7 @@ const animate = (key) => {
 
 const playMusic = (path) => {
   const audio = new Audio(path);
+  audio.volume = audio_volume;
   audio.play();
 };
 
@@ -31,6 +34,13 @@ document.addEventListener("keypress", (event) => {
   makeSound(triggeredKey);
   animate(triggeredKey);
 });
+
+// volume slider
+const slider = document.getElementById("volume__slider");
+slider.oninput = (event) => {
+  // to get value between 0 and 1
+  audio_volume = event.target.value / 100;
+};
 
 const makeSound = (key) => {
   switch (key) {
