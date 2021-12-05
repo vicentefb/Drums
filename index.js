@@ -35,6 +35,34 @@ document.addEventListener("keypress", (event) => {
   animate(triggeredKey);
 });
 
+var auto_music_id;
+var auto_music_on = false;
+const start_auto_music = () => {
+  const letters = ["w", "a", "s", "d", "j", "k", "l"];
+
+  auto_music_id = setInterval(() => {
+    const current_key = letters[Math.floor(Math.random() * letters.length)];
+    makeSound(current_key);
+    animate(current_key);
+  }, 250);
+};
+
+const auto_music_button = document.getElementById("util__button-auto");
+
+auto_music_button.addEventListener("click", () => {
+  if (auto_music_on) {
+    clearInterval(auto_music_id);
+    auto_music_on = false;
+    auto_music_button.innerText = "Start Auto Music";
+    auto_music_button.classList.remove("auto_music_on");
+  } else {
+    start_auto_music();
+    auto_music_on = true;
+    auto_music_button.innerText = "Stop Auto Music";
+    auto_music_button.classList.add("auto_music_on");
+  }
+});
+
 // volume slider
 const slider = document.getElementById("volume__slider");
 slider.oninput = (event) => {
